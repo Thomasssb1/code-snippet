@@ -1,0 +1,36 @@
+{
+  "python": {
+    "showErrors": false,
+    "showLineNumbers": true,
+    "styles": {
+      "entity": {
+        "namespace": "#FF0000",
+        "type": "#FF0000",
+        "class": "#FF0000",
+        "interface": "#FF0000",
+        "enum": "#FF0000",
+        "function": "#FF0000",
+        "method": "#FF0000",
+        "macro": "#FF0000"
+      },
+      "variable": {
+        "variable": "#FF0000",
+        "variable.readonly": "#FF0000",
+        "parameter": "#FF0000",
+        "property": "#FF0000",
+        "property.readonly": "#FF0000",
+        "enumMember": "#FF0000",
+        "event": "#FF0000"
+      },
+      "support": {
+        "type.defaultLibrary": "#FF0000",
+        "class.defaultLibrary": "#FF0000",
+        "function.defaultLibrary": "#FF0000",
+        "variable.readonly.defaultLibrary": "#FF0000"
+      },
+      "storage": {
+        "struct": "#FF0000"
+      }
+    }
+  }
+}
