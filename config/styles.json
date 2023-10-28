@@ -1,7 +1,13 @@
 {
-  "python": {
+  "java": {
     "showErrors": false,
     "showLineNumbers": true,
+    "commentConfig": {
+      "lineComment": "//",
+      "blockComment": ["/*", "*/"],
+      "removeComments": true,
+      "commentsCancel": false
+    },
     "styles": {
       "entity": {
         "namespace": "#FF0000",

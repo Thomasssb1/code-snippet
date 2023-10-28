@@ -1,2 +1,6 @@
 *.env
-*.png, *.jpg, *.jpeg
+*.png 
+*.jpg
+*.jpeg
+test.java
+__pycache__/
