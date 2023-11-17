@@ -4,3 +4,4 @@
 *.jpeg
 test.java
 __pycache__/
+.vscode/
