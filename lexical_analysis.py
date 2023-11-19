@@ -15,8 +15,9 @@ Whitespaces
 with open("config/java.json", "r") as f:
     data = json.loads(f.read())
     KEYWORDS = data["keywords"]
-    SEPERATORS = data["seperators"]
     INDENTIFIER = r"[a-zA-Z_][a-zA-Z0-9_]*"
+    OPERATORS = data["operators"]
+    SEPERATORS = data["seperators"]
     STRING_CHAR = "\"|'"
 
 
@@ -44,20 +45,40 @@ class LexicalAnalysis:
         tokens = []
         is_string = False
         split_pattern = createSeperatorRegex()
-        print(split_pattern)
+        create_string = []
         for word in re.split(split_pattern, cleaned_code):
+            if not word:
+                pass
+
+            if is_string:
+                create_string.append(word)
+            elif re.match("\s+", word):
+                tokens.append(("whitespace", word))
+                pass
+
             for _ in range(0, len(re.findall(STRING_CHAR, word))):
                 is_string = not is_string
+                if is_string:
+                    create_string.append(word)
+                elif create_string:
+                    tokens.append(("literal", " ".join(create_string)))
+                    create_string = []
+                    is_string = False
+                    pass
+
             if word in KEYWORDS:
                 tokens.append(("keyword", word))
             elif word in SEPERATORS:
                 tokens.append(("seperator", word))
+            elif word in OPERATORS:
+                tokens.append(("operator", word))
             else:
-                identifier = True if re.fullmatch(INDENTIFIER, word) != None else False
+                identifier = True if re.fullmatch(INDENTIFIER, word) else False
                 if identifier and not is_string:
                     tokens.append(("identifier", word))
 
         print(f"tokens: {tokens}")
+        return tokens
 
 
 # Need to update to work for different block comments

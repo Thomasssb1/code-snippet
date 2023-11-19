@@ -4,12 +4,12 @@ from color import Color
 class StylingPalette:
     def __init__(
         self,
-        keywords=Color("#987dd2"),
-        identifiers=Color("#ffffff"),
-        literals=Color("#a8cd76"),
-        operators=Color("#9cdbfb"),
-        seperators=Color("#72a5cb"),
-        comments=Color("#53597a"),
+        keywords: Color = Color("#987dd2"),
+        identifiers: Color = Color("#ffffff"),
+        literals: Color = ("#a8cd76"),
+        operators: Color = ("#9cdbfb"),
+        seperators: Color = ("#72a5cb"),
+        comments: Color = ("#53597a"),
     ) -> None:
         self.keywords = keywords
         self.identifiers = identifiers

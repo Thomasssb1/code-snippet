@@ -39,7 +39,3 @@ class Color:
             print(hexadecimal)
         else:
             raise InvalidColorType
-
-
-col = Color("#ffffff")
-col.setColor("281, 65, 79")
