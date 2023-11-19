@@ -9,7 +9,8 @@ Currently Code Snippet will only support:
 - java
 - ruby
 - dart
-  Out of the box, but you will be able to manually add them with a little bit of configuration. Don't worry if you don't think you know what you are doing - more languages will be supported soon.
+
+Out of the box, but you will be able to manually add them with a little bit of configuration. Don't worry if you don't think you know what you are doing - more languages will be supported soon.
 
 ## Manual support
 
