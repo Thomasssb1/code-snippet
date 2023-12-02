@@ -1,0 +1,14 @@
+{
+  "java": {
+    "showErrors": true,
+    "showComments": true,
+    "style": {
+      "keywords": "#987dd2",
+      "identifiers": "#ffffff",
+      "literals": "#a8cd76",
+      "operators": "#9cdbfb",
+      "seperators": "#72a5cb",
+      "comments": "#53597a"
+    }
+  }
+}
