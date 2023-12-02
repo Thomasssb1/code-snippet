@@ -19,6 +19,7 @@ with open("config/java.json", "r") as f:
     OPERATORS = data["operators"]
     SEPERATORS = data["seperators"]
     STRING_CHAR = "\"|'"
+    COMMENTS = data["comments"]
 
 
 class LexicalAnalysis:
@@ -38,10 +39,10 @@ class LexicalAnalysis:
         print(between_lines)
         code = code[between_lines[0] - 1 : between_lines[1]]
         for i, line in enumerate(code):
-            code[i] = removeComments(line, self.config.line_comment)
+            code[i] = removeComments(line, COMMENTS["single"])
         return "\n".join(filter(None, code))
 
-    def tokenisation(self, cleaned_code: str) -> list:
+    def tokenisation(self, cleaned_code: str, config: configFile) -> list:
         tokens = []
         is_string = False
         split_pattern = createSeperatorRegex()
@@ -67,17 +68,16 @@ class LexicalAnalysis:
                     pass
 
             if word in KEYWORDS:
-                tokens.append(("keyword", word))
+                tokens.append((config.keyword, word))
             elif word in SEPERATORS:
-                tokens.append(("seperator", word))
+                tokens.append((config.seperator, word))
             elif word in OPERATORS:
-                tokens.append(("operator", word))
+                tokens.append((config.operator, word))
             else:
                 identifier = True if re.fullmatch(INDENTIFIER, word) else False
                 if identifier and not is_string:
-                    tokens.append(("identifier", word))
+                    tokens.append((config.identifier, word))
 
-        print(f"tokens: {tokens}")
         return tokens
 
 
