@@ -39,3 +39,6 @@ class Color:
             print(hexadecimal)
         else:
             raise InvalidColorType
+
+    def __str__(self) -> str:
+        return self.color

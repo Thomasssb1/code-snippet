@@ -18,3 +18,4 @@ class configFile:
             self.operator = Color(data[self.language]["style"]["operators"])
             self.seperator = Color(data[self.language]["style"]["seperators"])
             self.comment = Color(data[self.language]["style"]["comments"])
+            self.background = Color(data[self.language]["style"]["background"])

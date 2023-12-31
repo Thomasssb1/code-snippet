@@ -62,7 +62,7 @@ class LexicalAnalysis:
                 if is_string:
                     create_string.append(word)
                 elif create_string:
-                    tokens.append(("literal", " ".join(create_string)))
+                    tokens.append((config.literal, " ".join(create_string)))
                     create_string = []
                     is_string = False
                     pass
