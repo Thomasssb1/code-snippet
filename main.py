@@ -1,3 +1,4 @@
+from io import StringIO
 from PIL import Image, ImageFont
 from PIL.ImageDraw import ImageDraw
 from PIL import ImageColor
@@ -6,25 +7,40 @@ from lexical_analysis import LexicalAnalysis
 from config_file import configFile
 from color import Color
 
+import numpy as np
+import streamlit as st
 
-def main():
-    # Padding all around the text in px
-    PADDING = 15
 
-    font = ImageFont.truetype("config/CascadiaCode.ttf", 16)
+def main(file, state, **kwargs) -> Image:
+    state.set_state("running")
+    with state.container:
+        if file is None:
+            return
+        # Padding all around the text in px
+        PADDING = kwargs["padding"]
 
-    with open("test.java", "r") as f:
-        config_file = configFile("config/config.json")
+        st.write("Setting up the configurations...")
+        font = ImageFont.truetype("config/CascadiaCode.ttf", 16)
+
+        if "isCli" in kwargs.keys() and kwargs["isCli"]:
+            f = open(file, "r")
+        else:
+            f = StringIO(file.getvalue().decode("utf-8"))
+
+        config_file = configFile("config/config.json", kwargs["language"])
 
         image = Image.new("RGB", (PADDING, PADDING), color=config_file.background.color)
         d = ImageDraw(image)
 
+        st.write("Performing lexical analysis...")
         text = f.read()
         lex = LexicalAnalysis(text, config_file)
 
-        cleaned_text = lex.preprocess()
+        print(kwargs["between_lines"])
+        cleaned_text = lex.preprocess(between_lines=kwargs["between_lines"])
         tokens = lex.tokenisation(cleaned_text, config_file)
 
+        st.write("Generating the image...")
         bbox = d.multiline_textbbox(xy=(0, 0), text=cleaned_text, font=font)
         image = image.resize((bbox[2] + (PADDING * 2), bbox[3] + (PADDING * 2)))
         d = ImageDraw(image)
@@ -52,6 +68,9 @@ def main():
             last_point = (x, y)
 
         image.save("test.png", "PNG")
+
+        state.set_text("Success!")
+        return image
 
 
 if __name__ == "__main__":

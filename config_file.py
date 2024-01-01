@@ -3,13 +3,27 @@ from color import Color
 
 
 class configFile:
+    """
+    This class is used to parse the config file.
+    """
+
     def __init__(
         self,
         filepath: str,
+        *args,
     ) -> None:
+        """
+        This function is used to parse the config file.
+
+        You can define a language to be used by passing it as an argument, otherwise it will be determined automatically.
+        """
         with open(filepath, "r") as f:
             data = json.loads(f.read())
-            self.language = next(iter(data))
+            if args:
+                self.language = args[0]
+
+            else:
+                self.language = next(iter(data))
             self.show_errors = data[self.language]["showErrors"]
             self.remove_comments = data[self.language]["showComments"]
             self.keyword = Color(data[self.language]["style"]["keywords"])

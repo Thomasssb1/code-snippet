@@ -28,7 +28,7 @@ class LexicalAnalysis:
         self.config = config
         self.tokens = []
 
-    def preprocess(self, code: str = None, between_lines: tuple = (1,)) -> str:
+    def preprocess(self, between_lines: tuple, code: str = None) -> str:
         if code is None:
             code = self.code
         code = removeBlockComments(code).splitlines()
@@ -36,7 +36,6 @@ class LexicalAnalysis:
             between_lines[0] if len(between_lines) > 0 else 1,
             between_lines[1] if len(between_lines) > 1 else len(code),
         )
-        print(between_lines)
         code = code[between_lines[0] - 1 : between_lines[1]]
         for i, line in enumerate(code):
             code[i] = removeComments(line, COMMENTS["single"])
