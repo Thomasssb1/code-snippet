@@ -49,23 +49,25 @@ class LexicalAnalysis:
         create_string = []
         for word in re.split(split_pattern, cleaned_code):
             if not word:
-                pass
+                continue
 
             if is_string:
                 create_string.append(word)
             elif re.match("\s+", word):
                 tokens.append(("whitespace", word))
-                pass
+                continue
 
-            for _ in range(0, len(re.findall(STRING_CHAR, word))):
+            quoted_count = len(re.findall(STRING_CHAR, word))
+            for _ in range(0, quoted_count):
                 is_string = not is_string
                 if is_string:
                     create_string.append(word)
                 elif create_string:
-                    tokens.append((config.literal, " ".join(create_string)))
+                    tokens.append((config.literal.string, "".join(create_string)))
                     create_string = []
                     is_string = False
-                    pass
+            if quoted_count > 0:
+                continue
 
             if word in KEYWORDS:
                 tokens.append((config.keyword, word))
@@ -77,6 +79,15 @@ class LexicalAnalysis:
                 identifier = True if re.fullmatch(INDENTIFIER, word) else False
                 if identifier and not is_string:
                     tokens.append((config.identifier, word))
+                elif not is_string:
+                    if word.isdigit():
+                        tokens.append((config.literal.number, word))
+                    else:
+                        for char in word:
+                            if char.isdigit():
+                                tokens.append((config.literal.number, char))
+                            else:
+                                tokens.append((config.operator, char))
 
         return tokens
 
