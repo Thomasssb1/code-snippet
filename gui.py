@@ -60,9 +60,14 @@ with st.expander("Options", expanded=True):
         disabled=file is None,
     )
     if st.checkbox("show advanced options"):
-        padding = st.number_input("padding", value=15, min_value=0, max_value=100)
+        with st.container(border=True):
+            padding = st.number_input("padding", value=15, min_value=0, max_value=100)
+            transparent_background = st.checkbox("transparent background")
+            if st.checkbox("customise syntax highlighting"):
+                st.json()
     else:
         padding = 15
+        transparent_background = False
 
 status_container = st.status("Waiting for the file to be uploaded...", state="error")
 state = status(status_container)
@@ -76,6 +81,7 @@ if st.button("Generate", type="primary", disabled=file is None):
         show_comments=show_comments,
         between_lines=between_lines,
         padding=padding,
+        transparent_background=transparent_background,
     )
     st.image(array(image), use_column_width=True)
     btn = st.download_button(
@@ -83,4 +89,5 @@ if st.button("Generate", type="primary", disabled=file is None):
         data=image.tobytes(),
         file_name="snippet.png",
         mime="image/png",
+        use_container_width=True,
     )

@@ -29,14 +29,19 @@ def main(file, state, **kwargs) -> Image:
 
         config_file = configFile("config/config.json", kwargs["language"])
 
-        image = Image.new("RGB", (PADDING, PADDING), color=config_file.background.color)
+        image = Image.new(
+            "RGBA",
+            (PADDING, PADDING),
+            color=(0, 0, 0, 0)
+            if kwargs["transparent_background"]
+            else config_file.background.color,
+        )
         d = ImageDraw(image)
 
         st.write("Performing lexical analysis...")
         text = f.read()
         lex = LexicalAnalysis(text, config_file)
 
-        print(kwargs["between_lines"])
         cleaned_text = lex.preprocess(between_lines=kwargs["between_lines"])
         tokens = lex.tokenisation(cleaned_text, config_file)
 
