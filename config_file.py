@@ -32,13 +32,11 @@ class configFile:
             self.seperator = Color(data[self.language]["style"]["seperators"])
             self.comment = Color(data[self.language]["style"]["comments"])
             self.background = Color(data[self.language]["style"]["background"])
-            self.literal = literal(data[self.language]["style"]["literals"])
-
-
-class literal:
-    def __init__(
-        self,
-        identifiers,
-    ) -> None:
-        self.string = Color(identifiers["string"])
-        self.number = Color(identifiers["number"])
+            self.literal = type(
+                "literal",
+                (),
+                {
+                    "string": Color(data[self.language]["style"]["literals"]["string"]),
+                    "number": Color(data[self.language]["style"]["literals"]["number"]),
+                },
+            )

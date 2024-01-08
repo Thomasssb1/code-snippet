@@ -7,7 +7,6 @@ from lexical_analysis import LexicalAnalysis
 from config_file import configFile
 from color import Color
 
-import numpy as np
 import streamlit as st
 
 
