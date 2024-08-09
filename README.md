@@ -18,4 +18,4 @@ If your language is not mentioned above, you can still use the tool but instead 
 
 ### Warning
 
-This is currently under development and I cannot guarantee it works (definitely does not work at the moment). Check back soon!
+This is currently under development and so currently only java works as intended. I am planning on adding the intended languages as mentioned previously, for now if you want to add any language look at [manually adding a language](#manual-support).
